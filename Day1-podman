@@ -1,0 +1,28 @@
+# Podman Usage
+
+## Podman install
+## podman安装完成，使用podman machine set --rootful=true设置 root权限
+## podman machine set --user-mode-networking=true 将会生成一个新的wsl实例
+## wsl -l -v 查看实例
+###     podman-machine-default    Stopped         2
+###     podman-net-usermode       Running         2
+
+## 直接使用 terminal 进入podman-net-usermode 便是使用system proxy的模式
+
+## Podman set registries
+### 如果ssl handshake timeout, sudo yum update ca-certificates
+### 注意代理模式，不能是黑名单模式
+### podman login docker.io username password
+
+## Podman install mysql
+## podman search --filter is-official=true mysql
+## podman pull docker.io/library/mysql:latest
+## podman run -d \
+  --name podman-mysql \
+  -e MYSQL_ROOT_PASSWORD=root \              # 设置 root 密码（替换为实际值）
+  -p 3306:3306 \                              # 映射宿主机 3306 端口到容器
+  -v D:\workspace\Data\podman-mysql:/var/lib/mysql \              # 持久化数据卷
+  mysql:latest \
+  --character-set-server=utf8mb4 \            # 可选：设置字符集
+  --collation-server=utf8mb4_unicode_ci
+
